@@ -1,4 +1,5 @@
 extern crate alloc;
+use stylus_cache_sdk::{is_contract_cacheable};
 
 // Modules and imports
 mod erc721;
@@ -29,6 +30,10 @@ struct StylusNFTParams;
 impl Erc721Params for StylusNFTParams {
     const NAME: &'static str = "StylusNFT";
     const SYMBOL: &'static str = "SNFT";
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
+    }
+
 }
 
 // Define the entrypoint as a Solidity storage object. The sol_storage! macro
@@ -132,4 +137,8 @@ impl StylusNFT {
     pub fn get_art_contract_address(&mut self) -> Result<Address, StylusNFTError> {
         Ok(self.art_contract_address.get())
     }
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
+    }
+
 }
